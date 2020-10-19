@@ -1,11 +1,9 @@
 window.addEventListener("DOMContentLoaded", init);
 
 // All the keys to be used
-const numbers = ['9', '8', '7', '6', '5', '4', '3', '2', '1', '.', '0'];
-const operators = ['/', '*', '-', '+']
-
+const numbers = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '.', '0'];
 // All the function keys
-const spec = ['*', '/', '+', '-'];
+const operators = ['/', '*', '-', '+']
 
 function outputDoc() {
     const output = document.createElement('input');
@@ -20,7 +18,6 @@ function outputDoc() {
 }
 
 function init() {
-    console.log("Ready");
     let dec = false;
     let eva = false;
 
@@ -37,32 +34,26 @@ function init() {
     main.setAttribute('class', 'container')
     container.appendChild(main);
     
-    const del = document.createElement('div');
-    del.setAttribute('class', 'row')
-    btnMaker('C', clrOutput, del);
-    btnMaker('Del', backSpace, del);
-    main.appendChild(del);
+    const conRow = document.createElement('div');
+    conRow.setAttribute('class', 'row')
+    const conCol = colClass('col')
+    const conCol2 = colClass('col')
+    btnMaker('C', clrOutput, conCol);
+    btnMaker('Del', backSpace, conCol2);
+    conRow.appendChild(conCol);
+    conRow.appendChild(conCol2);
+    main.appendChild(conRow);
 
     let row
     let colNums
     numbers.forEach(function(val, index) {
         if (index%3===0){
-            row = document.createElement('div');
-            row.setAttribute('class', 'row')
-            row.setAttribute('role', 'toolbar')
-            colNums = document.createElement('div');
-            colNums.setAttribute('class', 'btn-group mr-2 col-9')
-            colNums.setAttribute('role', 'group')
-            colNums.setAttribute('aria-label', 'group1')
+            row = rowClass()
+            colNums = colClass('col-9', 'group1')
             row.appendChild(colNums);
             row.style.margin = '5px 0';
-            let colOperator = document.createElement('div');
-            colOperator.setAttribute('class', 'btn-group  col')
-            colOperator.setAttribute('role', 'group')
-            colOperator.setAttribute('aria-label', 'group2')
-            let btn = document.createElement('button');
-            btn.setAttribute('type', 'button');
-            btn.setAttribute('class', 'btn btn-warning')
+            let colOperator = colClass('col', 'group2')
+            let btn = buttonClass('btn-warning')
             btn.val = operators[index/3];
             btn.textContent = operators[index/3];
             btn.addEventListener('click', addOutput);
@@ -108,8 +99,7 @@ function init() {
     }
 
     function btnMaker(txt, outputFunc, row) {
-        let btn = document.createElement('button');
-        btn.setAttribute('type', 'button');
+        let btn = buttonClass(btnColorSelector(txt))
         btn.style.width = '23%';
         btn.style.lineHeight = '35px';
         btn.style.margin = '1%';
@@ -117,19 +107,23 @@ function init() {
         btn.val = txt;
         btn.textContent = txt;
         btn.addEventListener('click', outputFunc);
+        row.appendChild(btn);
+    }
+
+    function btnColorSelector(txt) {
+        let color = ""
         switch (txt) {
             case 'C':
             case "Del":
-                btn.setAttribute('class', 'btn btn-danger')
+                color = 'btn-danger'
                 break;
             case '=':
-                btn.setAttribute('class', 'btn btn-success')
+                color = 'btn-success'
                 break;
             default:
-                btn.setAttribute('class', 'btn')
                 break;
         }
-        row.appendChild(btn);
+        return color
     }
 
     function addOutput(e) {
@@ -145,7 +139,7 @@ function init() {
                 dec = true;
             }
         }
-        eva = spec.includes(char);
+        eva = operators.includes(char);
         if (eva) {
             dec = false;
         }

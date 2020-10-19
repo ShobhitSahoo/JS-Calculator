@@ -1,12 +1,17 @@
 header {
-    background-color: chocolate;
-    width: 36%;
-    margin-left: 32.2%;
-    margin-top: 5%;
-    display: flex;
-    justify-content: center;
+  width: 36%;
+  margin-left: 32.2%;
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
 }
 
 #head {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
 }
